@@ -4,7 +4,7 @@ from psycopg2.extras import RealDictCursor
 from typing import List, Optional
 
 from db_config import get_db_connection, db_pool
-from models import User, MACAddress
+from models import User, MACAddress, AccountingStart, AccountingStop
 
 app = FastAPI()
 
