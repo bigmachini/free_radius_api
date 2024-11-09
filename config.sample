@@ -1,0 +1,6 @@
+[database]
+host = host
+port = db_port
+database = radius
+user = radius
+password = password
