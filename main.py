@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, HTTPException
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -139,31 +141,6 @@ def delete_user(username: str):
         raise HTTPException(status_code=404, detail="User not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error deleting user") from e
-
-
-@app.post("/add-mac")
-def add_mac(mac_address: MACAddress):
-    mac = mac_address.mac
-    attribute = "Cleartext-Password"
-    op = ":="
-    value = mac
-
-    query = """
-        INSERT INTO radcheck (username, attribute, op, value)
-        VALUES (%s, %s, %s, %s)
-        RETURNING id;
-    """
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
-        cursor.execute(query, (mac, attribute, op, value))
-        result = cursor.fetchone()
-        conn.commit()
-        cursor.close()
-        db_pool.putconn(conn)
-        return {"message": "MAC address added successfully", "id": result["id"]}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Error adding MAC address") from e
 
 
 # Accounting Endpoints
