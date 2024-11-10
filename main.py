@@ -60,7 +60,7 @@ def add_user(user: User):
         db_pool.putconn(conn)
         return {"message": "User added successfully", "id": result["id"]}
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Error adding user") from e
+        raise HTTPException(status_code=500, detail=f"Error adding user {e}") from e
 
 
 @app.put("/user/{username}")

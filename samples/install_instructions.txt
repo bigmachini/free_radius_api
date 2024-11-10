@@ -7,3 +7,6 @@ sudo apt install freeradius-postgresql -y
 sudo ln -s /etc/freeradius/mods-available/sql /etc/freeradius/mods-enabled/
 #verify
 ls /etc/freeradius/mods-enabled | grep sql
+
+#Mikrotik Setup Hotspot
+https://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
