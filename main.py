@@ -11,45 +11,6 @@ from models import User, MACAddress, AccountingStart, AccountingStop
 app = FastAPI()
 
 
-# CRUD Operations
-@app.get("/users", response_model=List[User])
-def get_all_users():
-    """
-    Retrieve all users from the radcheck table.
-    """
-    query = "SELECT * FROM radcheck ORDER BY id;"
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
-        cursor.execute(query)
-        results = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        return results
-    except psycopg2.Error as e:
-        raise HTTPException(status_code=500, detail="Error retrieving users") from e
-
-
-@app.get("/user/{username}", response_model=Optional[User])
-def get_user_by_username(username: str):
-    """
-    Retrieve a specific user by username.
-    """
-    query = "SELECT * FROM radcheck WHERE username = %s;"
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
-        cursor.execute(query, (username,))
-        result = cursor.fetchone()
-        cursor.close()
-        conn.close()
-        if result:
-            return result
-        raise HTTPException(status_code=404, detail="User not found")
-    except psycopg2.Error as e:
-        raise HTTPException(status_code=500, detail="Error retrieving user") from e
-
-
 @app.get("/users", response_model=List[User])
 def get_all_users():
     query = "SELECT * FROM radcheck ORDER BY id;"

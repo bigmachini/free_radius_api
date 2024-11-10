@@ -1,0 +1,9 @@
+freeradius 3.2.6
+https://packages.inkbridgenetworks.com/#fr32-ubuntu
+
+#install freeradius-postgresql
+sudo apt install freeradius-postgresql -y
+#enable sql module
+sudo ln -s /etc/freeradius/mods-available/sql /etc/freeradius/mods-enabled/
+#verify
+ls /etc/freeradius/mods-enabled | grep sql
