@@ -1,3 +1,4 @@
 *.pyc
 config.ini
 .idea/
+radius_setup_sample.sql
